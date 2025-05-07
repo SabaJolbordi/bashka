@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>მოტივაცია და ხმა</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #fef6ff, #d0f4ff);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 40px 20px;
+      margin: 0;
+      overflow: hidden;
+      position: relative;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      color: #333;
+      font-size: 32px;
+      text-align: center;
+      margin-bottom: 30px;
+      z-index: 1;
+    }
+
+    .grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* მხოლოდ 2 სვეტი */
+  gap: 20px;
+  width: 100%;
+  max-width: 400px;
+  z-index: 1;
+  box-sizing: border-box;
+}
+
+    .button-box {
+      background: #ffffffcc;
+      border-radius: 16px;
+      padding: 25px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 22px;
+      cursor: pointer;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+      transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+      user-select: none;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+    }
+
+    .button-box:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      background-color: #fce4ec;
+    }
+
+    .button-box.active {
+      background-color: #b2ebf2;
+      transform: scale(0.97);
+    }
+
+    .symbol {
+      position: absolute;
+      top: -50px;
+      font-size: 28px;
+      color: #8884d8;
+      opacity: 0.7;
+      animation: fall linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0);
+        opacity: 0.7;
+      }
+      100% {
+        transform: translateY(120vh);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 24px;
+      }
+
+      .button-box {
+        font-size: 18px;
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>გააგრძელე ბრძოლა, წარმატება  წინ გელის!</h1>
+
+  <div class="grid">
+    <div class="button-box" onclick="playSound(1)">ჩაიში ყოფნა!</div>
+    <div class="button-box" onclick="playSound(2)">ამუშავე ეგ ბაშკა!</div>
+    <div class="button-box" onclick="playSound(3)">აზრზე მოდი ბიჭო!</div>
+    <div class="button-box" onclick="playSound(4)">გადაგივლის საქართველო!</div>
+  </div>
+
+  <!-- ხმები -->
+  <audio id="sound1" src="videos/1.mp3" preload="auto"></audio>
+  <audio id="sound2" src="videos/2.mp3" preload="auto"></audio>
+  <audio id="sound3" src="videos/3.mp3" preload="auto"></audio>
+  <audio id="sound4" src="videos/4.mp3" preload="auto"></audio>
+
+  <script>
+    function playSound(number) {
+      const sound = document.getElementById('sound' + number);
+      const buttons = document.getElementsByClassName('button-box');
+      const button = buttons[number - 1];
+
+      if (sound && button) {
+        sound.currentTime = 0;
+        sound.play();
+
+        button.classList.add('active');
+        setTimeout(() => {
+          button.classList.remove('active');
+        }, 150);
+      }
+    }
+
+    // მათემატიკური სიმბოლოების წვიმა
+    const symbols = ['π', '∑', '√', '∞', '∫', 'Δ', '≠', '≈', 'θ', 'λ'];
+    const numSymbols = 25;
+
+    for (let i = 0; i < numSymbols; i++) {
+      const el = document.createElement('div');
+      el.className = 'symbol';
+      el.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+      el.style.left = Math.random() * 100 + 'vw';
+      el.style.animationDuration = (Math.random() * 5 + 5) + 's';
+      el.style.fontSize = (Math.random() * 10 + 20) + 'px';
+      document.body.appendChild(el);
+    }
+  </script>
+
+</body>
+</html>
